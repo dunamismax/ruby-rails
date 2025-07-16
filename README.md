@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="ruby-rails-logo.png" alt="Ruby Rails Monorepo Logo" width="200" />
+  <img src="rails.png" alt="Ruby Rails Monorepo Logo" width="200" />
 </p>
 
 <p align="center">
@@ -69,21 +69,24 @@ ruby-rails/
 ### Setup
 
 1. **Bootstrap the monorepo:**
+
    ```bash
    ruby scripts/development/bootstrap.rb
    ```
 
 2. **Install dependencies:**
+
    ```bash
    bundle install
    ```
 
 3. **Set up individual applications:**
+
    ```bash
    # For Rails apps
    cd apps/dunamismax && bundle install && bundle exec rails db:create db:migrate
    cd apps/apiplayground && bundle install && bundle exec rails db:create db:migrate
-   
+
    # For CLI apps
    cd apps/blog_generator && bundle install
    cd apps/file_organizer && bundle install
@@ -104,6 +107,7 @@ A dark-themed personal blog and portfolio website built with Rails.
   - Portfolio showcase
   - Contact form
 - **Usage:**
+
   ```bash
   cd apps/dunamismax
   bundle exec rails server
@@ -124,6 +128,7 @@ An interactive API testing environment with various utility endpoints.
   - Date formatting
   - Interactive web interface
 - **Usage:**
+
   ```bash
   cd apps/apiplayground
   bundle exec rails server -p 3001
@@ -183,11 +188,13 @@ Common utilities used across all applications.
 **Location:** `gems/shared_utilities/`
 
 **Modules:**
+
 - `StringHelpers` - String manipulation utilities
 - `DateHelpers` - Date formatting and calculations
 - `ApiHelpers` - API-related utilities
 
 **Usage:**
+
 ```ruby
 # In any app's Gemfile
 gem 'shared_utilities', path: '../../gems/shared_utilities'
@@ -213,6 +220,7 @@ SharedUtilities::ApiHelpers.analyze_text(text)
 ### Bootstrap Script
 
 Initialize the entire monorepo:
+
 ```bash
 ruby scripts/development/bootstrap.rb
 ```
@@ -220,6 +228,7 @@ ruby scripts/development/bootstrap.rb
 ### Test Runner
 
 Run tests across all applications:
+
 ```bash
 # Run all tests
 ruby scripts/development/test_runner.rb
@@ -234,6 +243,7 @@ ruby scripts/development/test_runner.rb --gems shared_utilities
 ### Maintenance Scripts
 
 Clean up temporary files and logs:
+
 ```bash
 ruby scripts/maintenance/cleanup.rb
 ```
@@ -241,6 +251,7 @@ ruby scripts/maintenance/cleanup.rb
 ### Deployment Scripts
 
 Deploy applications:
+
 ```bash
 # Deploy all apps
 ruby scripts/deployment/deploy.rb
@@ -257,21 +268,24 @@ ruby scripts/deployment/deploy.rb --dry-run
 ### Adding a New Application
 
 1. Create the application directory:
+
    ```bash
    mkdir apps/my_new_app
    cd apps/my_new_app
    ```
 
 2. Initialize the application (Rails or Ruby):
+
    ```bash
    # For Rails app
    rails new . --database=sqlite3
-   
+
    # For Ruby app/gem
    bundle gem my_new_app
    ```
 
 3. Add shared utilities dependency:
+
    ```ruby
    # In Gemfile
    gem 'shared_utilities', path: '../../gems/shared_utilities'
@@ -282,17 +296,20 @@ ruby scripts/deployment/deploy.rb --dry-run
 ### Adding a New Shared Library
 
 1. Create the gem directory:
+
    ```bash
    mkdir gems/my_shared_lib
    cd gems/my_shared_lib
    ```
 
 2. Create the gemspec and basic structure:
+
    ```bash
    bundle gem my_shared_lib
    ```
 
 3. Add the gem to applications that need it:
+
    ```ruby
    # In app's Gemfile
    gem 'my_shared_lib', path: '../../gems/my_shared_lib'
@@ -349,27 +366,33 @@ ruby scripts/deployment/deploy.rb --app dunamismax --environment production
 ### API Playground Endpoints
 
 #### Text Analysis
+
 - `POST /api/text/analyze` - Analyze text statistics
 - `POST /api/text/reading_time` - Calculate reading time
 
 #### Random Generation
+
 - `GET /api/random/number` - Generate random number
 - `GET /api/random/numbers` - Generate multiple random numbers
 
 #### Password Generation
+
 - `GET /api/password/generate` - Generate secure password
 - `GET /api/password/batch` - Generate multiple passwords
 
 #### API Keys
+
 - `GET /api/keys/generate` - Generate API key
 - `GET /api/keys/batch` - Generate multiple API keys
 
 #### String Utilities
+
 - `POST /api/string/slugify` - Convert text to slug
 - `POST /api/string/truncate` - Truncate text by words
 - `POST /api/string/highlight` - Highlight code syntax
 
 #### Date Utilities
+
 - `POST /api/date/format` - Format date strings
 - `POST /api/date/time_ago` - Calculate relative time
 - `GET /api/date/current` - Get current date/time
