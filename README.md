@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="rails.png" alt="Ruby Rails Monorepo Logo" width="200" />
+  <img src="rails.png" alt="Ruby Rails Monorepo Logo" width="400" />
 </p>
 
 <p align="center">
