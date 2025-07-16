@@ -318,10 +318,6 @@ ruby scripts/deployment/deploy.rb --app dunamismax --environment production
 - `POST /api/date/time_ago` - Calculate relative time
 - `GET /api/date/current` - Get current date/time
 
-## Contributing
-
-Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
-
 ### Development Setup
 
 ```bash
