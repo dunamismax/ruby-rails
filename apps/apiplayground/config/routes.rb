@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   
   # API routes
   namespace :api do
+    # Health and monitoring
+    get :health, to: 'health#check'
+    get :metrics, to: 'health#metrics'
+    
     namespace :text do
       post :analyze
       post :reading_time
@@ -27,6 +31,9 @@ Rails.application.routes.draw do
     namespace :password do
       get :generate
       get :batch
+      post :validate
+      post :hash, to: 'password#hash_password'
+      post :verify, to: 'password#verify_password'
     end
     
     namespace :keys do
@@ -38,6 +45,9 @@ Rails.application.routes.draw do
       post :slugify
       post :truncate
       post :highlight
+      post :extract_emails
+      post :word_frequency
+      post :sanitize_html
     end
     
     namespace :date do

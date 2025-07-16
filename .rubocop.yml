@@ -1,0 +1,109 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 3.3
+  NewCops: enable
+  Exclude:
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+    - 'log/**/*'
+    - 'db/schema.rb'
+    - 'db/migrate/**/*'
+    - 'node_modules/**/*'
+    - 'storage/**/*'
+    - 'apps/*/tmp/**/*'
+    - 'apps/*/log/**/*'
+    - 'apps/*/vendor/**/*'
+    - 'apps/*/storage/**/*'
+
+# Layout
+Layout/LineLength:
+  Max: 120
+  
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+# Style
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+# Metrics
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/BlockLength:
+  Max: 30
+  Exclude:
+    - 'spec/**/*'
+    - 'config/routes.rb'
+    - 'config/environments/*.rb'
+    - 'gems/*/spec/**/*'
+    - 'apps/*/spec/**/*'
+    - 'apps/*/config/routes.rb'
+    - 'apps/*/config/environments/*.rb'
+
+Metrics/ClassLength:
+  Max: 150
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/ModuleLength:
+  Max: 150
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
+# Rails specific
+Rails/FilePath:
+  Enabled: false
+
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - test
+    - production
+    - staging
+
+# RSpec specific
+RSpec/ExampleLength:
+  Max: 10
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/DescribeClass:
+  Enabled: false
+
+# Naming
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false
