@@ -137,45 +137,18 @@ An interactive API testing environment with various utility endpoints.
 
 ## CLI Tools
 
-### Blog Generator
-
-Generate blog post templates with metadata.
-
-```bash
-# Generate a new post
-./apps/blog_generator/bin/blog_generator new "My New Post" --tags ruby,rails --category tech
-
-# Show statistics for a post
-./apps/blog_generator/bin/blog_generator stats my-post.md
-```
-
-### File Organizer
-
-Organize files by type, date, or custom rules.
+**Blog Generator**: Create blog posts with metadata and statistics  
+**File Organizer**: Organize files by type, date, or custom rules  
+**Code Stats**: Analyze code statistics and language distribution
 
 ```bash
-# Organize files by extension
+# Blog Generator
+./apps/blog_generator/bin/blog_generator new "My Post" --tags ruby,rails
+
+# File Organizer
 ./apps/file_organizer/bin/file_organizer by_type /path/to/directory
 
-# Organize files by date
-./apps/file_organizer/bin/file_organizer by_date /path/to/directory
-
-# Show directory statistics
-./apps/file_organizer/bin/file_organizer stats /path/to/directory
-```
-
-### Code Stats
-
-Analyze code statistics across projects.
-
-```bash
-# Analyze current directory
-./apps/code_stats/bin/code_stats analyze
-
-# Show languages in project
-./apps/code_stats/bin/code_stats languages
-
-# Output as JSON
+# Code Stats
 ./apps/code_stats/bin/code_stats analyze --format json
 ```
 
@@ -229,115 +202,40 @@ SharedUtilities::CacheHelpers.fetch(key) { expensive_operation }
 
 ## Development Scripts
 
-### Bootstrap Script
-
-Initialize the entire monorepo:
-
 ```bash
+# Bootstrap monorepo
 ruby scripts/development/bootstrap.rb
-```
 
-### Test Runner
-
-Run tests across all applications:
-
-```bash
-# Run all tests
+# Run tests
 ruby scripts/development/test_runner.rb
-
-# Run specific apps
 ruby scripts/development/test_runner.rb --apps dunamismax,apiplayground
 
-# Run specific gems
-ruby scripts/development/test_runner.rb --gems shared_utilities
-```
-
-### Maintenance Scripts
-
-Clean up temporary files and logs:
-
-```bash
+# Maintenance
 ruby scripts/maintenance/cleanup.rb
-```
 
-### Deployment Scripts
-
-Deploy applications:
-
-```bash
-# Deploy all apps
-ruby scripts/deployment/deploy.rb
-
-# Deploy specific app
-ruby scripts/deployment/deploy.rb --app dunamismax
-
-# Dry run
-ruby scripts/deployment/deploy.rb --dry-run
+# Deployment
+ruby scripts/deployment/deploy.rb --app dunamismax --dry-run
 ```
 
 ## Development Workflow
 
-### Adding a New Application
-
-1. Create the application directory:
-
-   ```bash
-   mkdir apps/my_new_app
-   cd apps/my_new_app
-   ```
-
-2. Initialize the application (Rails or Ruby):
-
-   ```bash
-   # For Rails app
-   rails new . --database=sqlite3
-
-   # For Ruby app/gem
-   bundle gem my_new_app
-   ```
-
-3. Add shared utilities dependency:
-
-   ```ruby
-   # In Gemfile
-   gem 'shared_utilities', path: '../../gems/shared_utilities'
-   ```
-
-4. Update the root README.md with documentation
-
-### Adding a New Shared Library
-
-1. Create the gem directory:
-
-   ```bash
-   mkdir gems/my_shared_lib
-   cd gems/my_shared_lib
-   ```
-
-2. Create the gemspec and basic structure:
-
-   ```bash
-   bundle gem my_shared_lib
-   ```
-
-3. Add the gem to applications that need it:
-
-   ```ruby
-   # In app's Gemfile
-   gem 'my_shared_lib', path: '../../gems/my_shared_lib'
-   ```
-
-### Running Tests
+### Adding New Applications
 
 ```bash
-# Run all tests
-ruby scripts/development/test_runner.rb
+# Create Rails app
+mkdir apps/my_new_app && cd apps/my_new_app
+rails new . --database=sqlite3
 
-# Run with verbose output
-ruby scripts/development/test_runner.rb --verbose
+# Add shared utilities to Gemfile
+echo "gem 'shared_utilities', path: '../../gems/shared_utilities'" >> Gemfile
+```
 
-# Run in parallel
-ruby scripts/development/test_runner.rb --parallel
+### Adding New Shared Libraries
+
+```bash
+# Create new gem
+mkdir gems/my_shared_lib && cd gems/my_shared_lib
+bundle gem my_shared_lib
 ```
 
 ## Security
@@ -432,7 +330,7 @@ cd ruby-rails
 ruby scripts/development/bootstrap.rb
 ```
 
-### Testing
+### Testing & Quality
 
 ```bash
 # Run all tests
@@ -443,35 +341,13 @@ bundle exec brakeman
 
 # Run code quality checks
 bundle exec rubocop
-```
-
-### Code Quality Requirements
-
-- **Security**: All inputs must be validated and sanitized
-- **Testing**: Comprehensive test coverage required
-- **Documentation**: Clear documentation and code comments
-- **Performance**: Consider performance impact of changes
-- **Standards**: Follow Ruby Style Guide and Rails conventions
-
-## Testing
-
-### Test Coverage
-
-- **Unit Tests**: Full RSpec test suite for shared utilities
-- **Integration Tests**: API endpoint testing
-- **Security Tests**: Input validation and security feature testing
-- **Performance Tests**: Performance monitoring and optimization
-
-### Running Tests
-
-```bash
-# Run all tests
-ruby scripts/development/test_runner.rb
 
 # Run specific test suites
 cd gems/shared_utilities && bundle exec rspec
 cd apps/apiplayground && bundle exec rails test
 ```
+
+**Requirements**: Security validation, comprehensive test coverage, clear documentation, performance consideration, Ruby/Rails standards compliance.
 
 ---
 
