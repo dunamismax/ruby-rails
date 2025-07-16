@@ -30,13 +30,13 @@ A **comprehensive Ruby on Rails monorepo** featuring production-quality applicat
 - **Shared Libraries**: Reusable gems for common functionality across applications
 - **CLI Tools**: Interactive command-line utilities for productivity
 - **Development Scripts**: Automated setup, testing, and deployment workflows
-- **Dark Mode UI**: Modern, responsive interfaces with elegant dark themes
 - **API Playground**: Interactive testing environment for utility APIs
-- **Comprehensive Documentation**: Extensive guides and code examples
-- **Professional Workflow**: Git hooks, linting, and automated testing
-- **Cross-Platform**: Support for macOS, Linux, and other Unix-like systems
+- **Comprehensive Testing**: Full test coverage with RSpec and Rails test suite
+- **Security Features**: Input validation, rate limiting, and security monitoring
+- **Performance Monitoring**: Caching, performance metrics, and health checks
+- **CI/CD Pipeline**: Automated testing, security audits, and deployment
 
-## 🗂️ Repository Structure
+## Repository Structure
 
 ```
 ruby-rails/
@@ -57,7 +57,7 @@ ruby-rails/
 └── README.md              # This file
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -93,7 +93,7 @@ ruby-rails/
    cd apps/code_stats && bundle install
    ```
 
-## 📱 Applications
+## Applications
 
 ### Dunamismax (Personal Blog/Portfolio)
 
@@ -135,7 +135,7 @@ An interactive API testing environment with various utility endpoints.
   # Visit http://localhost:3001
   ```
 
-## 🛠️ CLI Tools
+## CLI Tools
 
 ### Blog Generator
 
@@ -179,7 +179,7 @@ Analyze code statistics across projects.
 ./apps/code_stats/bin/code_stats analyze --format json
 ```
 
-## 💎 Shared Libraries
+## Shared Libraries
 
 ### SharedUtilities
 
@@ -189,9 +189,11 @@ Common utilities used across all applications.
 
 **Modules:**
 
-- `StringHelpers` - String manipulation utilities
-- `DateHelpers` - Date formatting and calculations
-- `ApiHelpers` - API-related utilities
+- `StringHelpers` - String manipulation, slugification, email extraction, word frequency
+- `DateHelpers` - Date formatting, time calculations, business day calculations
+- `ApiHelpers` - Password generation, text analysis, API key generation
+- `SecurityHelpers` - Input validation, sanitization, security utilities
+- `CacheHelpers` - Caching system with LRU eviction and performance optimization
 
 **Usage:**
 
@@ -204,18 +206,28 @@ require 'shared_utilities'
 
 # String helpers
 SharedUtilities::StringHelpers.slugify("Hello World")
-SharedUtilities::StringHelpers.reading_time(text)
+SharedUtilities::StringHelpers.extract_emails(text)
+SharedUtilities::StringHelpers.word_frequency(text)
 
 # Date helpers
 SharedUtilities::DateHelpers.time_ago_in_words(date)
 SharedUtilities::DateHelpers.format_date(date, :long)
+SharedUtilities::DateHelpers.business_days_between(start_date, end_date)
 
 # API helpers
 SharedUtilities::ApiHelpers.generate_password(12)
 SharedUtilities::ApiHelpers.analyze_text(text)
+SharedUtilities::ApiHelpers.hash_password(password)
+
+# Security helpers
+SharedUtilities::SecurityHelpers.sanitize_filename(filename)
+SharedUtilities::SecurityHelpers.validate_url(url)
+
+# Cache helpers
+SharedUtilities::CacheHelpers.fetch(key) { expensive_operation }
 ```
 
-## 🔧 Development Scripts
+## Development Scripts
 
 ### Bootstrap Script
 
@@ -263,7 +275,7 @@ ruby scripts/deployment/deploy.rb --app dunamismax
 ruby scripts/deployment/deploy.rb --dry-run
 ```
 
-## 🏗️ Development Workflow
+## Development Workflow
 
 ### Adding a New Application
 
@@ -328,14 +340,16 @@ ruby scripts/development/test_runner.rb --verbose
 ruby scripts/development/test_runner.rb --parallel
 ```
 
-## 🔐 Security
+## Security
 
-- All gems and applications follow security best practices
-- Regular security audits with Brakeman
-- Dependency scanning with Bundler Audit
-- No secrets or keys committed to the repository
+- **Input Validation**: All user inputs are validated and sanitized
+- **Rate Limiting**: API endpoints have rate limiting to prevent abuse
+- **Security Monitoring**: Comprehensive logging and monitoring of security events
+- **Dependency Scanning**: Automated vulnerability scanning with Bundler Audit
+- **Code Analysis**: Static security analysis with Brakeman
+- **Secure Defaults**: CSRF protection, secure headers, and proper error handling
 
-## 🚢 Deployment
+## Deployment
 
 ### Local Development
 
@@ -361,73 +375,103 @@ ruby scripts/deployment/deploy.rb --environment production
 ruby scripts/deployment/deploy.rb --app dunamismax --environment production
 ```
 
-## 📋 API Documentation
+## API Documentation
 
-### API Playground Endpoints
+### Health and Monitoring
 
-#### Text Analysis
+- `GET /api/health` - Health check with system status
+- `GET /api/metrics` - Performance metrics and usage statistics
 
-- `POST /api/text/analyze` - Analyze text statistics
+### String Utilities
+
+- `POST /api/string/slugify` - Convert text to URL-friendly slug
+- `POST /api/string/truncate` - Truncate text by word count
+- `POST /api/string/highlight` - Syntax highlighting for code
+- `POST /api/string/extract_emails` - Extract email addresses from text
+- `POST /api/string/word_frequency` - Analyze word frequency in text
+- `POST /api/string/sanitize_html` - Sanitize HTML content
+
+### Password Management
+
+- `GET /api/password/generate` - Generate secure passwords with options
+- `GET /api/password/batch` - Generate multiple passwords
+- `POST /api/password/validate` - Validate password strength
+- `POST /api/password/hash` - Hash passwords securely
+- `POST /api/password/verify` - Verify password against hash
+
+### Text Analysis
+
+- `POST /api/text/analyze` - Comprehensive text analysis
 - `POST /api/text/reading_time` - Calculate reading time
 
-#### Random Generation
+### Random Generation
 
-- `GET /api/random/number` - Generate random number
+- `GET /api/random/number` - Generate random numbers
 - `GET /api/random/numbers` - Generate multiple random numbers
 
-#### Password Generation
+### API Keys
 
-- `GET /api/password/generate` - Generate secure password
-- `GET /api/password/batch` - Generate multiple passwords
-
-#### API Keys
-
-- `GET /api/keys/generate` - Generate API key
+- `GET /api/keys/generate` - Generate API keys
 - `GET /api/keys/batch` - Generate multiple API keys
 
-#### String Utilities
+### Date Utilities
 
-- `POST /api/string/slugify` - Convert text to slug
-- `POST /api/string/truncate` - Truncate text by words
-- `POST /api/string/highlight` - Highlight code syntax
-
-#### Date Utilities
-
-- `POST /api/date/format` - Format date strings
+- `POST /api/date/format` - Format dates in various formats
 - `POST /api/date/time_ago` - Calculate relative time
 - `GET /api/date/current` - Get current date/time
 
-## 🤝 Contributing
+## Contributing
 
-Contributions welcome! This project aims to be a comprehensive Ruby on Rails monorepo reference.
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
-### Development Guidelines
+### Development Setup
 
 ```bash
-# Setup development environment
 git clone https://github.com/dunamismax/ruby-rails.git
 cd ruby-rails
 ruby scripts/development/bootstrap.rb
-
-# Before submitting PR
-ruby scripts/development/test_runner.rb
-ruby scripts/maintenance/cleanup.rb
 ```
 
-### Adding New Applications
+### Testing
 
-1. Choose appropriate application type (Rails app, CLI tool, or gem)
-2. Create well-structured, documented code
-3. Add comprehensive tests and documentation
-4. Follow Ruby and Rails best practices
-5. Update monorepo documentation
+```bash
+# Run all tests
+ruby scripts/development/test_runner.rb
+
+# Run security audit
+bundle exec brakeman
+
+# Run code quality checks
+bundle exec rubocop
+```
 
 ### Code Quality Requirements
 
-- **Production Quality**: Security-hardened, maintainable code
-- **Documentation**: Comprehensive README and inline comments
-- **Testing**: Unit tests and integration tests
+- **Security**: All inputs must be validated and sanitized
+- **Testing**: Comprehensive test coverage required
+- **Documentation**: Clear documentation and code comments
+- **Performance**: Consider performance impact of changes
 - **Standards**: Follow Ruby Style Guide and Rails conventions
+
+## Testing
+
+### Test Coverage
+
+- **Unit Tests**: Full RSpec test suite for shared utilities
+- **Integration Tests**: API endpoint testing
+- **Security Tests**: Input validation and security feature testing
+- **Performance Tests**: Performance monitoring and optimization
+
+### Running Tests
+
+```bash
+# Run all tests
+ruby scripts/development/test_runner.rb
+
+# Run specific test suites
+cd gems/shared_utilities && bundle exec rspec
+cd apps/apiplayground && bundle exec rails test
+```
 
 ---
 
