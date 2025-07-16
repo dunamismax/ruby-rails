@@ -1,0 +1,5 @@
+source "https://rubygems.org"
+
+gemspec
+
+gem "shared_utilities", path: "../../gems/shared_utilities"

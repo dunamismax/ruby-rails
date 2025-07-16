@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="page-header">
+    <h1>Contact</h1>
+  </div>
+
+  <div class="contact-content">
+    <div class="contact-info">
+      <h2>Get in Touch</h2>
+      <p>I'm always interested in hearing about new opportunities and interesting projects. Feel free to reach out!</p>
+      
+      <div class="contact-methods">
+        <div class="contact-method">
+          <h3>Email</h3>
+          <p><a href="mailto:hello@dunamismax.dev">hello@dunamismax.dev</a></p>
+        </div>
+        
+        <div class="contact-method">
+          <h3>GitHub</h3>
+          <p><a href="https://github.com/dunamismax" target="_blank">github.com/dunamismax</a></p>
+        </div>
+        
+        <div class="contact-method">
+          <h3>LinkedIn</h3>
+          <p><a href="https://linkedin.com/in/dunamismax" target="_blank">linkedin.com/in/dunamismax</a></p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="contact-form">
+      <h2>Send a Message</h2>
+      <%= form_with url: contact_path, method: :post, local: true do |form| %>
+        <div class="form-group">
+          <%= form.label :name %>
+          <%= form.text_field :name, required: true %>
+        </div>
+        
+        <div class="form-group">
+          <%= form.label :email %>
+          <%= form.email_field :email, required: true %>
+        </div>
+        
+        <div class="form-group">
+          <%= form.label :subject %>
+          <%= form.text_field :subject, required: true %>
+        </div>
+        
+        <div class="form-group">
+          <%= form.label :message %>
+          <%= form.text_area :message, rows: 5, required: true %>
+        </div>
+        
+        <div class="form-group">
+          <%= form.submit "Send Message", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

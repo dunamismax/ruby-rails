@@ -1,0 +1,63 @@
+<div class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">Dunamismax</h1>
+    <p class="hero-subtitle">Software Developer & Technology Enthusiast</p>
+    <div class="hero-buttons">
+      <%= link_to "About Me", about_path, class: "btn btn-primary" %>
+      <%= link_to "Contact", contact_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <section class="recent-posts">
+    <h2 class="section-title">Recent Posts</h2>
+    <div class="posts-grid">
+      <% @posts.each do |post| %>
+        <article class="post-card">
+          <h3 class="post-title"><%= link_to post[:title], "#" %></h3>
+          <p class="post-excerpt"><%= post[:excerpt] %></p>
+          <div class="post-meta">
+            <time class="post-date"><%= post[:date].strftime("%B %d, %Y") %></time>
+            <span class="post-reading-time">
+              <%= SharedUtilities::StringHelpers.reading_time(post[:excerpt]) %>
+            </span>
+          </div>
+        </article>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="skills">
+    <h2 class="section-title">Skills & Technologies</h2>
+    <div class="skills-grid">
+      <div class="skill-category">
+        <h3>Backend</h3>
+        <ul>
+          <li>Ruby on Rails</li>
+          <li>Ruby</li>
+          <li>PostgreSQL</li>
+          <li>Redis</li>
+        </ul>
+      </div>
+      <div class="skill-category">
+        <h3>Frontend</h3>
+        <ul>
+          <li>JavaScript</li>
+          <li>HTML/CSS</li>
+          <li>Stimulus</li>
+          <li>Turbo</li>
+        </ul>
+      </div>
+      <div class="skill-category">
+        <h3>Tools</h3>
+        <ul>
+          <li>Git</li>
+          <li>Docker</li>
+          <li>Linux</li>
+          <li>CI/CD</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>

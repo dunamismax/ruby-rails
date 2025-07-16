@@ -1,0 +1,143 @@
+<div class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">API Playground</h1>
+    <p class="hero-subtitle">Interactive API Testing Environment</p>
+    <p class="hero-description">Test various utility APIs for text analysis, random generation, and more.</p>
+  </div>
+</div>
+
+<div class="container">
+  <section class="apis-section">
+    <h2 class="section-title">Available APIs</h2>
+    <div class="apis-grid">
+      <% @apis.each do |api| %>
+        <div class="api-card">
+          <h3 class="api-name"><%= api[:name] %></h3>
+          <p class="api-description"><%= api[:description] %></p>
+          <div class="api-endpoint">
+            <strong>Endpoint:</strong> <code><%= api[:endpoint] %></code>
+          </div>
+          <div class="api-example">
+            <strong>Example:</strong> <code><%= api[:example] %></code>
+          </div>
+          <div class="api-actions">
+            <button class="btn btn-primary" onclick="testApi('<%= api[:endpoint] %>')">Test API</button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="test-section">
+    <h2 class="section-title">API Tester</h2>
+    <div class="test-container">
+      <div class="test-form">
+        <div class="form-group">
+          <label for="method">Method:</label>
+          <select id="method" name="method">
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="endpoint">Endpoint:</label>
+          <input type="text" id="endpoint" name="endpoint" placeholder="/api/text/analyze">
+        </div>
+        
+        <div class="form-group">
+          <label for="params">Parameters (JSON):</label>
+          <textarea id="params" name="params" rows="5" placeholder='{"text": "Hello world"}'></textarea>
+        </div>
+        
+        <div class="form-group">
+          <button class="btn btn-primary" onclick="sendRequest()">Send Request</button>
+          <button class="btn btn-secondary" onclick="clearForm()">Clear</button>
+        </div>
+      </div>
+      
+      <div class="test-results">
+        <h3>Response</h3>
+        <div id="response-status" class="response-status"></div>
+        <pre id="response-body" class="response-body">Click "Send Request" to test an API</pre>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+function testApi(endpoint) {
+  document.getElementById('endpoint').value = endpoint;
+  
+  // Set default parameters based on endpoint
+  const params = document.getElementById('params');
+  const method = document.getElementById('method');
+  
+  if (endpoint.includes('/text/')) {
+    method.value = 'POST';
+    params.value = '{"text": "This is a sample text for testing the API endpoint."}';
+  } else if (endpoint.includes('/random/number')) {
+    method.value = 'GET';
+    params.value = '{"min": 1, "max": 100}';
+  } else if (endpoint.includes('/password/')) {
+    method.value = 'GET';
+    params.value = '{"length": 12}';
+  } else if (endpoint.includes('/keys/')) {
+    method.value = 'GET';
+    params.value = '{"length": 32}';
+  } else if (endpoint.includes('/string/')) {
+    method.value = 'POST';
+    params.value = '{"text": "Hello World Example"}';
+  } else if (endpoint.includes('/date/')) {
+    method.value = 'POST';
+    params.value = '{"date": "2023-12-25"}';
+  }
+}
+
+async function sendRequest() {
+  const method = document.getElementById('method').value;
+  const endpoint = document.getElementById('endpoint').value;
+  const paramsText = document.getElementById('params').value;
+  
+  let url = endpoint;
+  let body = null;
+  let headers = {
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
+  };
+  
+  try {
+    if (method === 'GET' && paramsText) {
+      const params = JSON.parse(paramsText);
+      const queryString = new URLSearchParams(params).toString();
+      url += '?' + queryString;
+    } else if (method === 'POST' && paramsText) {
+      body = paramsText;
+    }
+    
+    const response = await fetch(url, {
+      method: method,
+      headers: headers,
+      body: body
+    });
+    
+    const responseData = await response.json();
+    
+    document.getElementById('response-status').textContent = `Status: ${response.status} ${response.statusText}`;
+    document.getElementById('response-status').className = `response-status ${response.ok ? 'success' : 'error'}`;
+    document.getElementById('response-body').textContent = JSON.stringify(responseData, null, 2);
+    
+  } catch (error) {
+    document.getElementById('response-status').textContent = 'Error: ' + error.message;
+    document.getElementById('response-status').className = 'response-status error';
+    document.getElementById('response-body').textContent = 'Failed to send request';
+  }
+}
+
+function clearForm() {
+  document.getElementById('endpoint').value = '';
+  document.getElementById('params').value = '';
+  document.getElementById('response-status').textContent = '';
+  document.getElementById('response-body').textContent = 'Click "Send Request" to test an API';
+}
+</script>
